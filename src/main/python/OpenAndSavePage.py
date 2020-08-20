@@ -26,7 +26,7 @@ def OpenPageThenSave(page_url, save_to_file):
     except:
         print("timeout loading page: ", page_url)
 
-    # To simulate a Save As dialog. You can remove this since you'll be saving/downloading a file from a link
+    # To simulate a Save As dialog.
     pyautogui.hotkey('ctrl', 's')
 
     # Wait for the Save As dialog to load. Might need to increase the wait time on slower machines
@@ -74,3 +74,4 @@ def main(argv):
 
 if __name__ == "__main__":
     main(sys.argv[1:])
+
