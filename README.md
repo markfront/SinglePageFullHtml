@@ -4,6 +4,8 @@
 
 This repository contains code (Java and Python) to download a fully-loaded web page and save as one single html that contains everything (css, javascript, images, etc.) to open in any web browser.
 
+Here the fully-loaded page is not the one you get by wget or curl, which can be called a static page. Rather, it is the page you see when open the static html in a web browser, where many styles, javascripts and images are dynamically loaded.
+
 It uses python and selenium to open the given page url in Firefox, and wait for the page to load fully (or timeout after 30 sec). Then it uses pyautogui to issue "Ctrl-S" to save the loaded page to disk.
 
 Note that Firefox saves the complete page in a html file, along with a folder containing all resources like css, javascripts, images, which can only be opened in Firefox. If you try to open it in other browsers, e.g., Chrome, it likely won't open properly.
