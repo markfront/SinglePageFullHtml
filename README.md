@@ -28,8 +28,11 @@ The code has been tested on Ubuntu 20.04 LTS, with the following dependencies in
  
  ## Usage
  
- 1. After clone the project, run:
+ 1. Clone the project, then run maven to build:
     ```
+    $> git clone https://github.com/markfront/SinglePageFullHtml.git
+    
+    $> cd ~/git/SinglePageFullHtml
     $> mvn clean compile package
     ```
  2. Find the generated jar file in target folder: SinglePageFullHtml-1.0-SNAPSHOT.jar
@@ -37,14 +40,13 @@ The code has been tested on Ubuntu 20.04 LTS, with the following dependencies in
  3. Find the python script included in src/main/python/OpenAndSavePath.py
  
  4. Run the jar in command line like:
-    ```
-    $> cd ~/git/SinglePageFullHtml
+    ```    
     $> java -jar .target/SinglePageFullHtml-1.0-SNAPSHOT.jar <page_url> <download_dir> <python_script_path>
     ```
  5. Note: the hashcode of the page url string is used to name generate files:
-  - The page saved by Firefox has a name like "P-470668507.html" and the resources are saved in folder named "P-470668507_files". Here "-470668507" is the hashCode() of the page url string. 
+    - The page saved by Firefox has a name like "P-470668507.html" and the resources are saved in folder named "P-470668507_files". Here "-470668507" is the hashCode() of the page url string. 
  
-  - The final single big fat html will have a name like "FP-470668507.html", where the file size can be 10 times as "P-470668507.html" after embedding the resources.
+    - The final single big fat html will have a name like "FP-470668507.html", where the file size can be 10 times as "P-470668507.html" after embedding the resources.
  
  ## To-Do
  
