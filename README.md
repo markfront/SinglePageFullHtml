@@ -41,5 +41,9 @@ The code has been tested on Ubuntu 20.04 LTS, with the following dependencies in
     $> cd ~/git/SinglePageFullHtml
     $> java -jar .target/SinglePageFullHtml-1.0-SNAPSHOT.jar <page_url> <download_dir> <python_script_path>
     ```
-    
+ 5. Note: the hashcode of the page url string is used to name generate files:
+  - The page saved by Firefox has a name like "P-470668507.html" and the resources are saved in folder named "P-470668507_files". Here "-470668507" is the hashCode() of the page url string. 
+ 
+  - The finanl single big fat html will have a name like "FP-470668507.html", where the file size can be 10 times as "P-470668507.html" after embedding the resources.
+ 
  
