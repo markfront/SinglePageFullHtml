@@ -1,4 +1,4 @@
-# SinglePageFullHtml
+# Single-Page-Full-Html (SPFH)
 
 ## Introduction
 
