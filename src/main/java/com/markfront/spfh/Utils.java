@@ -1,3 +1,5 @@
+package com.markfront.spfh;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.tika.Tika;
