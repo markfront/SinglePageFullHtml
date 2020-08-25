@@ -42,7 +42,7 @@ The code has been tested on Ubuntu 20.04 LTS, with the following dependencies in
     $> java -jar .target/SinglePageFullHtml-1.0-SNAPSHOT-jar-with-dependencies.jar <page_url>
     
  4. The result fat html will be saved to the tmp folder (which can get by System.getProperty("java.io.tmp"). In my case, it's "/tmp". 
-    ```
+ 
  5. Note: the hashcode of the page url string is used to name generate files:
     - The page saved by Firefox has a name like "P-470668507.html" and the resources are saved in folder named "P-470668507_files". Here "-470668507" is the hashCode() of the page url string. 
  
