@@ -6,7 +6,7 @@ This repository contains code (Java and Python) to download a fully-loaded web p
 
 Here the fully-loaded page is not the one you download using tools like wget or curl, or write code to connect to the url to fetch the content. The html obtained in these ways is sometimes called a static page. Rather, the fully-loaded page is what you see when open the static html in a web browser, where many styles, javascripts and images are dynamically exceuted or loaded.
 
-The idea to get the fully loaded page is to use python and selenium to open the given url in a browser (currently Firefox), and wait for the page to load fully (or timeout after 30 sec). Then it uses pyautogui to mimic human interaction with browser by programmatically issuing "Ctrl+S" keys to save the loaded page to disk file.
+The idea to get the fully loaded page is to use python and selenium to open the given url in a browser (currently Firefox), and wait for the page to load fully (or timeout after 30 sec). Then it uses pyautogui to mimic human interaction with browser by programmatically issuing "Ctrl+S" keys to save the loaded page to disk file. (Acknowledgement: the idea was inspired by FThompson's answer to this StackOverflow question: https://stackoverflow.com/questions/53729201/save-complete-web-page-incl-css-images-using-python-selenium)
 
 Note that Firefox saves the complete page in a html file, along with a folder containing all resources like css, javascripts, and images, which can only be opened in Firefox. If you try to open it in other browsers, e.g., Chrome, it likely won't open properly. Note that, you would need to turn on Airplane mode (or turn off cable or wifi internet connection) to see the effect.
 
