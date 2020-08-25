@@ -35,13 +35,13 @@ The code has been tested on Ubuntu 20.04 LTS, with the following dependencies in
     $> cd ~/git/com.markfront.spfh.SinglePageFullHtml
     $> mvn clean compile package
     ```
- 2. Find the generated jar file in target folder: com.markfront.spfh.SinglePageFullHtml-1.0-SNAPSHOT.jar
+ 2. Find the generated jar file in target folder: SinglePageFullHtml-1.0-SNAPSHOT-jar-with-dependencies.jar
  
- 3. Find the python script included in src/main/python/OpenAndSavePath.py
- 
- 4. Run the jar in command line like:
+ 3. Run the jar in command line like:
     ```    
-    $> java -jar .target/com.markfront.spfh.SinglePageFullHtml-1.0-SNAPSHOT.jar <page_url> <download_dir> <python_script_path>
+    $> java -jar .target/SinglePageFullHtml-1.0-SNAPSHOT-jar-with-dependencies.jar <page_url>
+    
+ 4. The result fat html will be saved to the tmp folder (which can get by System.getProperty("java.io.tmp"). In my case, it's "/tmp". 
     ```
  5. Note: the hashcode of the page url string is used to name generate files:
     - The page saved by Firefox has a name like "P-470668507.html" and the resources are saved in folder named "P-470668507_files". Here "-470668507" is the hashCode() of the page url string. 
