@@ -27,7 +27,7 @@ public class SinglePageFullHtml {
      curr_dir = args[1]; // "/home/bgu/Downloads";
      py_script = args[2]; // "/home/bgu/Projects/com.markfront.spfh.SinglePageFullHtml/src/main/python/OpenAndSavePage.py";
      */
-    public static void run(String page_url, String curr_dir, String py_script) {
+    public static String run(String page_url, String curr_dir, String py_script) {
         if (curr_dir == null || curr_dir.length() == 0) curr_dir = getTmpDirectory();
         if (py_script == null || py_script.length() == 0) py_script = findAbsPathOfPythonScript("OpenAndSavePage.py");
 
@@ -56,6 +56,8 @@ public class SinglePageFullHtml {
         Utils.mergeIntoFatHtml(page_url, in_file, out_file, curr_dir);
 
         System.out.println("\nresult fat html saved to: " + out_file);
+
+        return out_file;
     }
 
     public static void showUsage() {
