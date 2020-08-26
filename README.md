@@ -30,9 +30,9 @@ The code has been tested on Ubuntu 20.04 LTS, with the following dependencies in
  
  1. Clone the project, then run maven to build:
     ```
-    $> git clone https://github.com/markfront/com.markfront.spfh.SinglePageFullHtml.git
+    $> git clone https://github.com/markfront/SinglePageFullHtml.git
     
-    $> cd ~/git/com.markfront.spfh.SinglePageFullHtml
+    $> cd ~/git/SinglePageFullHtml
     $> mvn clean compile package
     ```
  2. Find the generated jar file in target folder: SinglePageFullHtml-1.0-SNAPSHOT-jar-with-dependencies.jar
