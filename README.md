@@ -39,7 +39,7 @@ The code has been tested on Ubuntu 20.04 LTS, with the following dependencies in
  
  3. Run the jar in command line like:
     ```    
-    $> java -jar .target/SinglePageFullHtml-1.0-SNAPSHOT-jar-with-dependencies.jar <page_url>
+    $> java -jar ./target/SinglePageFullHtml-1.0-SNAPSHOT-jar-with-dependencies.jar https://www.wonderslist.com/10-most-amazing-places-on-earth/
     
  4. The result fat html will be saved to the tmp folder (which can get by System.getProperty("java.io.tmp"). In my case, it's "/tmp". 
  
