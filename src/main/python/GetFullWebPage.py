@@ -10,6 +10,7 @@ import sys, getopt
 
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.firefox.options import Options
 
 import pyautogui
 import time
@@ -18,7 +19,10 @@ def OpenPageThenSave(page_url, save_to_file):
     cap = DesiredCapabilities().FIREFOX
     cap["marionette"] = True
 
-    browser = webdriver.Firefox(capabilities=cap)
+    options = Options()
+    options.headless = False
+
+    browser = webdriver.Firefox(capabilities=cap, options=options)
     browser.set_page_load_timeout(30)  # seconds
 
     try:
@@ -51,9 +55,9 @@ def main(argv):
     out_dir  = ''
     out_file = ''
     try:
-        opts, args = getopt.getopt(argv,"h:u:o:f:",["url=","dir=","file="])
+        opts, args = getopt.getopt(argv,"hu:o:f:",["url=","dir=","file="])
     except getopt.GetoptError:
-        print('GetFullWebPage.py -u <page_url> -o <output_dir> -f <output_filename>')
+        print('python GetFullWebPage.py -u <page_url> -o <output_dir> -f <output_filename>')
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
@@ -73,5 +77,13 @@ def main(argv):
     OpenPageThenSave(page_url, out_dir + "/" + out_file)
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    #print('Number of arguments:', len(sys.argv), 'arguments.')
+    #print('Argument List:', str(sys.argv))
 
+    opt_list = list(sys.argv)
+    if len(opt_list) == 1:
+        opt_list.append('-h')
+
+    #print('opt_list = ', opt_list)
+
+    main(opt_list[1:])

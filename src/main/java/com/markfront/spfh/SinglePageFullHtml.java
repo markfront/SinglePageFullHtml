@@ -25,11 +25,11 @@ public class SinglePageFullHtml {
     /* e.g.,
      page_url = "https://www.wonderslist.com/10-most-amazing-places-on-earth";
      curr_dir = args[1]; // "/home/bgu/Downloads";
-     py_script = args[2]; // "/home/bgu/Projects/com.markfront.spfh.SinglePageFullHtml/src/main/python/OpenAndSavePage.py";
+     py_script = args[2]; // "/home/bgu/Projects/com.markfront.spfh.SinglePageFullHtml/src/main/python/GetFullWebPage.py";
      */
     public static String run(String page_url, String curr_dir, String py_script) {
         if (curr_dir == null || curr_dir.length() == 0) curr_dir = getTmpDirectory();
-        if (py_script == null || py_script.length() == 0) py_script = findAbsPathOfPythonScript("OpenAndSavePage.py");
+        if (py_script == null || py_script.length() == 0) py_script = findAbsPathOfPythonScript("GetFullWebPage.py");
 
         String file_stem = "P" + page_url.hashCode();
 
@@ -39,7 +39,7 @@ public class SinglePageFullHtml {
 
         System.out.println("py_script: " + py_script);
 
-        // e.g., /usr/bin/python OpenAndSavePage.py  -o /home/bgu/Downloads/ -u https://www.wonderslist.com/10-most-amazing-places-on-earth
+        // e.g., /usr/bin/python GetFullWebPage.py  -o /home/bgu/Downloads/ -u https://www.wonderslist.com/10-most-amazing-places-on-earth
         String[] py_cmd = new String[] {
                 "/usr/bin/python3",
                 py_script,
