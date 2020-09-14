@@ -1,6 +1,9 @@
 package com.markfront.spfh;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class SinglePageFullHtml {
     public static void main( String[] args ) {
@@ -13,7 +16,10 @@ public class SinglePageFullHtml {
 
         String page_url = args[0];
 
-        run(page_url, "", "");
+        boolean use_cache = true;
+        if (args.length>1 && args[1].equalsIgnoreCase("false")) use_cache = false;
+
+        run(page_url, "", "", use_cache);
 
         long t2 = System.currentTimeMillis();
 
@@ -27,7 +33,7 @@ public class SinglePageFullHtml {
      curr_dir = args[1]; // "/home/bgu/Downloads";
      py_script = args[2]; // "/home/bgu/Projects/com.markfront.spfh.SinglePageFullHtml/src/main/python/GetFullWebPage.py";
      */
-    public static String run(String page_url, String curr_dir, String py_script) {
+    public static String run(String page_url, String curr_dir, String py_script, boolean use_cache) {
         if (curr_dir == null || curr_dir.length() == 0) curr_dir = getTmpDirectory();
         if (py_script == null || py_script.length() == 0) py_script = findAbsPathOfPythonScript("GetFullWebPage.py");
 
@@ -39,23 +45,51 @@ public class SinglePageFullHtml {
 
         System.out.println("py_script: " + py_script);
 
-        // e.g., /usr/bin/python GetFullWebPage.py  -o /home/bgu/Downloads/ -u https://www.wonderslist.com/10-most-amazing-places-on-earth
-        String[] py_cmd = new String[] {
-                "/usr/bin/python3",
-                py_script,
-                "-o", curr_dir,
-                "-u", page_url,
-                "-f", file_stem
-        };
-
-        Utils.execSystemCommand(py_cmd);
-
         String in_file = curr_dir + "/" + file_stem + ".html";
         String out_file = curr_dir + "/F" + file_stem + ".html";
 
-        Utils.mergeIntoFatHtml(page_url, in_file, out_file, curr_dir);
+        File fin = new File(in_file);
 
-        System.out.println("\nresult fat html saved to: " + out_file);
+        if (!fin.exists() || !use_cache) {
+
+            if (fin.exists()) {
+                fin.delete();
+            }
+
+            // e.g., /usr/bin/python GetFullWebPage.py  -o /home/bgu/Downloads/ -u https://www.wonderslist.com/10-most-amazing-places-on-earth
+            String[] py_cmd = new String[]{
+                    "/usr/bin/python3",
+                    py_script,
+                    "-o", curr_dir,
+                    "-u", page_url,
+                    "-f", file_stem
+            };
+
+            Utils.execSystemCommand(py_cmd);
+        } else {
+            // use previously saved html download
+        }
+
+        File fout = new File(out_file);
+        if (fout.exists()) {
+            fout.delete();
+        }
+
+        try {
+            Thread.sleep(2000);
+            long bytes1 = fin.length();
+
+            System.out.println("before merge file size: " + bytes1);
+
+            Utils.mergeIntoFatHtml(page_url, in_file, out_file, curr_dir);
+
+            long bytes2 = fout.length();
+
+            System.out.println("\nresult fat html saved to: " + out_file);
+            System.out.println("\nresult merged file size: " + bytes2);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
         return out_file;
     }
@@ -91,16 +125,35 @@ public class SinglePageFullHtml {
     }
 
     private static String getTmpDirectory() {
+        /*
         String java_io_tmp = System.getProperty("java.io.tmpdir");
-        if (java_io_tmp!=null) return java_io_tmp;
+        File f = new File(java_io_tmp);
+        if (f.exists() && f.canRead() && f.canWrite()) return java_io_tmp;
 
         String user_home = System.getProperty("user.home");
-        if (user_home!=null) return user_home;
+        f = new File(user_home);
+        if (f.exists() && f.canRead() && f.canWrite()) return user_home;
 
         String user_dir = System.getProperty("user.dir");
-        if (user_dir!=null) return user_dir;
-
+        f = new File(user_dir);
+        if (f.exists() && f.canRead() && f.canWrite()) return user_dir;
+        */
         String cwd = new File("").getAbsolutePath();
-        return cwd;
+
+        ///*
+        String tmp_dir = cwd + "/temp";
+
+        File f = new File(tmp_dir);
+
+        if (!f.exists()) {
+            try {
+                f.mkdir();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        // */
+
+        return tmp_dir;
     }
 }

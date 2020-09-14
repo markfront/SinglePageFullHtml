@@ -34,7 +34,7 @@ def OpenPageThenSave(page_url, save_to_file):
     pyautogui.hotkey('ctrl', 's')
 
     # Wait for the Save As dialog to load. Might need to increase the wait time on slower machines
-    time.sleep(3)
+    time.sleep(2)
 
     # File path + name
     # FILE_NAME = 'C:\\path\\to\\file\\file.ext'
@@ -45,8 +45,9 @@ def OpenPageThenSave(page_url, save_to_file):
 
     # Hit Enter to save
     pyautogui.hotkey('enter')
+    pyautogui.hotkey('enter')
 
-    time.sleep(3)
+    time.sleep(5)
 
     browser.quit()
 
