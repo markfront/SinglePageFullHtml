@@ -52,5 +52,6 @@ The code has been tested on Ubuntu 20.04 LTS, with the following dependencies in
  
   1. add option to use Chrome (Firefox seems ignored some urls in css files when save loaded page to file)
   2. turn the function into a restful api and make a docker for easy deploy
+  3. add configurable webdriver path
   
   

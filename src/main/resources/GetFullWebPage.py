@@ -1,19 +1,20 @@
 #!/usr/bin/python
 
-import sys, getopt
+import getopt
+import os
+import pyautogui
+import sys
+import time
+from selenium import webdriver
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.firefox.options import Options
+
 
 # sudo apt install python3-pip
 # sudo apt-get install python3-tk python3-dev
 # pip3 install pyautogui
 # pip3 install selenium
 # sudo cp /home/bgu/Packages/geckodriver-v0.27.0-linux64/geckodriver /usr/bin/
-
-from selenium import webdriver
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver.firefox.options import Options
-
-import pyautogui
-import time
 
 def OpenPageThenSave(page_url, save_to_file):
     cap = DesiredCapabilities().FIREFOX
@@ -51,12 +52,13 @@ def OpenPageThenSave(page_url, save_to_file):
 
     browser.quit()
 
+
 def main(argv):
     page_url = ''
-    out_dir  = ''
+    out_dir = ''
     out_file = ''
     try:
-        opts, args = getopt.getopt(argv,"hu:o:f:",["url=","dir=","file="])
+        opts, args = getopt.getopt(argv, "hu:o:f:", ["url=", "dir=", "file="])
     except getopt.GetoptError:
         print('python GetFullWebPage.py -u <page_url> -o <output_dir> -f <output_filename>')
         sys.exit(2)
@@ -75,16 +77,17 @@ def main(argv):
     print('out_dir  = ', out_dir)
     print('out_file = ', out_file)
 
-    OpenPageThenSave(page_url, out_dir + "/" + out_file)
+    OpenPageThenSave(page_url, out_dir + os.path.sep + out_file)
+
 
 if __name__ == "__main__":
-    #print('Number of arguments:', len(sys.argv), 'arguments.')
-    #print('Argument List:', str(sys.argv))
+    # print('Number of arguments:', len(sys.argv), 'arguments.')
+    # print('Argument List:', str(sys.argv))
 
     opt_list = list(sys.argv)
     if len(opt_list) == 1:
         opt_list.append('-h')
 
-    #print('opt_list = ', opt_list)
+    # print('opt_list = ', opt_list)
 
     main(opt_list[1:])

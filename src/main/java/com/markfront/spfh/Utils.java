@@ -49,7 +49,7 @@ public class Utils {
 
                 Element elem = new Element(Tag.valueOf("style"), "");
 
-                String css_str = readFileToString(curr_dir + "/" + css_file);
+                String css_str = readFileToString(curr_dir + File.separatorChar + css_file);
                 System.out.println("css_str.length() = " + css_str.length());
 
                 elem.append(css_str);
@@ -72,7 +72,7 @@ public class Utils {
                 Element elem = new Element(Tag.valueOf("script"), "");
                 elem.attr("type", "text/javascript");
 
-                String js_str = readFileToString(curr_dir + "/" + js_file);
+                String js_str = readFileToString(curr_dir + File.separatorChar + js_file);
                 System.out.println("js_str.length() = " + js_str.length());
 
                 elem.append(js_str);
@@ -93,9 +93,9 @@ public class Utils {
                 String img_file = img.attr("src");
                 System.out.println(img_file);
 
-                String img_base64 = readImageContentAsBase64(curr_dir + "/" + img_file);
+                String img_base64 = readImageContentAsBase64(curr_dir + File.separatorChar + img_file);
 
-                String mimeType = detectMimeType(curr_dir + "/" + img_file);
+                String mimeType = detectMimeType(curr_dir + File.separatorChar + img_file);
 
                 // src="data:image/png;base64,......"
                 String src_value = "data:" + mimeType + ";base64," + img_base64;
@@ -123,15 +123,11 @@ public class Utils {
     }
 
     public static void SaveHtmlToFile(String html_str, String file_path) {
-        Writer out =  null;
-        try {
-            out = new BufferedWriter(new OutputStreamWriter
-                    (new FileOutputStream(file_path), StandardCharsets.UTF_8));
+        try (Writer out = new BufferedWriter(new OutputStreamWriter
+                (new FileOutputStream(file_path), StandardCharsets.UTF_8))) {
             out.write(html_str);
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
-        } finally {
-            if (out!=null) { try { out.close(); } catch (Exception ignored) {} }
         }
     }
 
@@ -179,10 +175,9 @@ public class Utils {
         return img_base64;
     }
 
-    private static final Tika tika = new Tika();
     public static String detectMimeType(String file_path) {
-        String mimeType = tika.detect(file_path);
-        return mimeType;
+        final Tika tika = new Tika();
+        return tika.detect(file_path);
     }
 
     public static boolean execSystemCommand(String[] cmd_with_args) {
@@ -204,7 +199,7 @@ public class Utils {
     }
 
     private static class StreamGobbler implements Runnable {
-        private InputStream inputStream;
+        private final InputStream inputStream;
 
         public StreamGobbler(InputStream inputStream) {
             this.inputStream = inputStream;
@@ -213,7 +208,7 @@ public class Utils {
         @Override
         public void run() {
             new BufferedReader(new InputStreamReader(inputStream)).lines()
-                    .forEach(x -> System.out.println(x));
+                    .forEach(System.out::println);
         }
     }
 }
